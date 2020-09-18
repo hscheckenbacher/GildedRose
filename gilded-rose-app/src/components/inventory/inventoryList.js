@@ -1,20 +1,16 @@
-import React from 'react';
-import { branch } from 'baobab-react/higher-order';
-import BaseComponent from '../../components/baseComponent';
 import _ from 'lodash';
-
-import { PageHeader } from 'react-bootstrap';
+import React, { PureComponent } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Row, Col, Button } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
+import autoBind from "react-autobind";
 
 import { deleteItems, showModal } from '../../actions/appActions';
 
-import FontAwesome from 'react-fontawesome';
+class InventoryList extends PureComponent {
 
-class InventoryList extends BaseComponent {
-
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
         this.state = {
             selectedRows: {}
         }
@@ -58,7 +54,7 @@ class InventoryList extends BaseComponent {
                 width: "100"
             }
         ]
-        this._bind('deleteSelected', 'onRowSelect', 'onSelectAll','showAddItemModal');
+		autoBind(this);
     }
 
     onRowSelect(row, isSelected) {

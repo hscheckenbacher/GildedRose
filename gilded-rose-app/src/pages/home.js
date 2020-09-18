@@ -1,14 +1,10 @@
-import React from 'react';
-import BaseComponent from '../components/baseComponent';
-
+import React, { PureComponent } from 'react';
+import { root } from 'baobab-react/higher-order';
 import { Jumbotron, Button } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
-class HomePage extends BaseComponent {
-
-    constructor(props) {
-        super(props);
-    }
+import state from "../state/state";
+class HomePage extends PureComponent {
 
     render() {
         return (
@@ -21,4 +17,4 @@ class HomePage extends BaseComponent {
     }
 }
 
-export default HomePage;
+export default root(state, HomePage);

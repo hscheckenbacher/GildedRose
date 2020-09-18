@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { branch } from 'baobab-react/higher-order';
+import autoBind from "react-autobind";
 
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, Image, Badge } from 'react-bootstrap';
-import { IndexLinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, NavItem, Button, Image, Badge } from 'react-bootstrap';
+import { Link, withRouter } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
-import BaseComponent from '../baseComponent';
 
 import {nextDay, resetInventories} from '../../actions/appActions';
 
-class NavBar extends BaseComponent {
+class NavBar extends PureComponent {
 
-    constructor(props) {
-        super(props);
-        this._bind('endDay', 'reset', 'showProfile');
+	constructor(props) {
+		super(props);
+		autoBind(this);
     }
 
     endDay() {
@@ -42,17 +42,17 @@ class NavBar extends BaseComponent {
             <Navbar inverse collapseOnSelect fluid style={{ backgroundColor: 'black', borderRadius: '0' }}>
                 <Navbar.Header>
                     <Navbar.Brand style={{ padding: '0px' }}>
-                        <img src="assets/images/logo3.png" style={{ width: '108px', height: '50px', padding: '0px' }} />
+                        <img alt="Gilded Rose Logo" src="assets/images/logo3.png" style={{ width: '108px', height: '50px', padding: '0px' }} />
                     </Navbar.Brand>
                     <Navbar.Brand>
-                    <IndexLinkContainer key="home" to="/" style={{fontSize:'2.5em', cursor:'pointer'}}><span className="App-title">The Gilded Rose Inn</span></IndexLinkContainer>
+						<Link key="home" to="/" style={{ fontSize: '1em', cursor: 'pointer' }}><span className="App-title">The Gilded Rose Inn</span></Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <IndexLinkContainer key="currentInventory" to="/currentInventory"><NavItem eventKey={1} href="#"><FontAwesome name="list" /> Current Inventory</NavItem></IndexLinkContainer>
-                        <IndexLinkContainer key="expiredInventory" to="/expiredInventory"><NavItem eventKey={2} href="#"><FontAwesome name="trash-o" /> Expired Invetory {badBadge}</NavItem></IndexLinkContainer>
+						<NavItem eventKey={1} href="#"><Link key="currentInventory" to="/currentInventory"><FontAwesome name="list" /> Current Inventory</Link></NavItem>
+						<NavItem eventKey={2} href="#"><Link key="expiredInventory" to="/expiredInventory"><FontAwesome name="trash-o" /> Expired Invetory {badBadge}</Link></NavItem>
                         <Button bsStyle="warning" style={{ float: "left", marginTop: "8px" }} onClick={this.endDay}><FontAwesome name="sun-o" /> End Day</Button>
                         <Button bsStyle="danger" style={{ float: "left", marginTop: "8px", marginLeft: "5px" }} onClick={this.reset}><FontAwesome name="undo" /> Reset</Button>
                         <NavItem eventKey={3} href="#" className="profile-link" onClick={this.showProfile}><Image style={{ width: '40px', height: '40px' }} src="assets/images/allison.png" circle /></NavItem>
@@ -65,4 +65,4 @@ class NavBar extends BaseComponent {
 
 export default branch({
     inventory: ['inventory', 'bad']
-}, NavBar);
+}, withRouter(NavBar));

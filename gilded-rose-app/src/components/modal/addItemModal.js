@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { branch } from 'baobab-react/higher-order';
-import BaseComponent from '../../components/baseComponent';
-import _ from 'lodash';
+import autoBind from "react-autobind";
 
-import { Grid, Row, Col, PageHeader, Button, Modal, FormControl, FormGroup, Form, ControlLabel } from 'react-bootstrap';
+import { Col, Button, Modal, FormControl, FormGroup, Form, ControlLabel } from 'react-bootstrap';
 
 import FontAwesome from 'react-fontawesome';
 
-import { hideModal, showModal, addItem } from '../../actions/appActions';
+import { hideModal, addItem } from '../../actions/appActions';
 
 const ITEM_CATEGORY_SULFURAS = "Sulfuras";
 const ITEM_CATEGORY_CONJURED = "Conjured";
@@ -34,17 +33,17 @@ const OPTION_CATEGORY = "category";
 const OPTION_QUALITY = "quality";
 const OPTION_SELLIN = "sellIn";
 
-class AddItemModel extends BaseComponent {
+class AddItemModel extends PureComponent {
 
-    constructor(props) {
-        super(props);
-        this._bind('hideModal', 'isConfigValueEqualTo', 'setConfigValue', 'createItem');
+	constructor(props) {
+		super(props);
         this.state = {
             [OPTION_LABEL]: '',
             [OPTION_CATEGORY]: ITEM_CATEGORY_CONJURED,
             [OPTION_QUALITY]: 20,
             [OPTION_SELLIN]: 20
-        }
+		}
+		autoBind(this);
     }
 
     hideModal() {
@@ -55,12 +54,16 @@ class AddItemModel extends BaseComponent {
         return this.state[configOption] === value;
     }
 
-    setConfigValue(configOption, e) {
-        this.state[configOption] = e.target.value;
+	setConfigValue(configOption, e) {
+		this.setState({
+			[configOption]: e.target.value
+		})
     }
 
     setConfigValueNumber(configOption, e) {
-        this.state[configOption] = parseInt(e.target.value);
+		this.setState({
+			[configOption]: parseInt(e.target.value)
+		})
     }
 
     createItem() {

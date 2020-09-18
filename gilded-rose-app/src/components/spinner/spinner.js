@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {branch} from 'baobab-react/higher-order';
-import BaseComponent from '../baseComponent';
 import Loadable from 'react-loading-overlay';
 
-class Spinner extends BaseComponent {
+class Spinner extends PureComponent {
 
     render() {
         let spinnerDisplay = this.props.spinner.show ? 'block' : 'none';
@@ -11,11 +10,12 @@ class Spinner extends BaseComponent {
         return (
             <Loadable
                 active={this.props.spinner.show}
-                spinner
+				spinner
                 spinnerSize="100px"
                 text={spinnerText}
-                style={{ position: 'fixed', width: '100%', height: '100%', left: '0', top: '0', zIndex: 99999, display: spinnerDisplay }}
-            >
+                style={{ position: 'fixed', width: '100vw', height: '100vh', left: '0', top: '0', zIndex: 99999, display: spinnerDisplay, display:"flex", justifyContent:"center", alignItems:"center" }}
+			>
+				{this.props.children}
             </Loadable>
         )
     }

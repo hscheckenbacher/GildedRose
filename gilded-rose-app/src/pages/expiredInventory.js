@@ -1,17 +1,16 @@
-import React from 'react';
 import { branch } from 'baobab-react/higher-order';
-import { PageHeader, Button } from 'react-bootstrap';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-
-import BaseComponent from '../components/baseComponent';
+import React, { PureComponent } from 'react';
+import autoBind from "react-autobind";
+import { PageHeader } from 'react-bootstrap';
+import { deleteItems } from '../actions/appActions';
 import InventoryList from '../components/inventory/inventoryList';
 
-import {deleteItems} from '../actions/appActions';
 
-class ExpiredInventory extends BaseComponent {
 
-    constructor(props) {
-        super(props);
+class ExpiredInventory extends PureComponent {
+
+	constructor(props) {
+		super(props);
         this.state={
             selectedRows:{}
         }
@@ -22,7 +21,7 @@ class ExpiredInventory extends BaseComponent {
             onSelectAll: self.onSelectAll,
             self
         };
-        this._bind('deleteSelected','onRowSelect','onSelectAll');
+		autoBind(this);
     }
 
     onRowSelect(row, isSelected) {

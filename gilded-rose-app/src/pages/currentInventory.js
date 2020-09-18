@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {branch} from 'baobab-react/higher-order';
-
 import { PageHeader } from 'react-bootstrap';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-import BaseComponent from '../components/baseComponent';
 import InventoryList from '../components/inventory/inventoryList';
 
-class CurrentInventory extends BaseComponent {
+class CurrentInventory extends PureComponent {
 
     render() {
         return (
